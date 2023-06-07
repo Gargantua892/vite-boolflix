@@ -1,30 +1,63 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
+<script>
+import { store } from './store.js'
+import axios from 'axios'
+import Header from './components/Header.vue';
+
+// import Footer from './components/Footer.vue';
+
+export default{
+  components: {
+    Header
+},
+data() {
+    return {
+      store,
+    }
+  },
+  methods: {
+
+    //Metodo che chiama le API dei film
+    getFilms(){
+
+      let myUrl = `${store.allFilmsApi}${store.myApiKey}${store.filmSearchValue}`;
+      
+      // if(store.filmSearchValue !== ""){
+      //   // myUrl = `${myUrl}?archetype=${store.filterModel}`;
+      //   myUrl
+      // }
+
+      console.log(myUrl)
+
+      axios.get(myUrl)
+      .then(res => {
+        store.filmsList = res.data;
+      })
+      .catch( err => {
+        console.log(err);
+      })
+    },
+  },
+  created() {
+    this.getFilms();
+  }
+}
+
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+    <Header @search="getFilms"/>
+     <!--Creare componente filmList  -->
+    <div class="filmList">
+
+      <!--Creare componente film singolo -->
+      <div class="films" v-for="film in store.filmsList.results">
+        <p>{{ film.original_title }}</p>
+      </div>
+    </div>
+
+       <!-- <pre>{{ store.filmsList }}</pre>  -->
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+
 </style>
