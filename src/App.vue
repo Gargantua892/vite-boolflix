@@ -1,61 +1,47 @@
 <script>
 import { store } from './store.js'
-import axios from 'axios'
 import Header from './components/Header.vue';
+import SearchModule from './components/SearchModule.vue';
+import FilmList from './components/FilmList.vue';
+import Film from './components/Film.vue';
+
 
 // import Footer from './components/Footer.vue';
 
 export default{
   components: {
-    Header
+    Header,
+    SearchModule,
+    FilmList,
+    Film,
 },
 data() {
     return {
       store,
     }
   },
-  methods: {
-
-    //Metodo che chiama le API dei film
-    getFilms(){
-
-      let myUrl = `${store.allFilmsApi}${store.myApiKey}${store.filmSearchValue}`;
-      
-      // if(store.filmSearchValue !== ""){
-      //   // myUrl = `${myUrl}?archetype=${store.filterModel}`;
-      //   myUrl
-      // }
-
-      console.log(myUrl)
-
-      axios.get(myUrl)
-      .then(res => {
-        store.filmsList = res.data;
-      })
-      .catch( err => {
-        console.log(err);
-      })
-    },
-  },
-  created() {
-    this.getFilms();
-  }
 }
 
 </script>
 
 <template>
-    <Header @search="getFilms"/>
-     <!--Creare componente filmList  -->
-    <div class="filmList">
+    <Header />
+    <FilmList />
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <pre>{{ store.filmsList }}</pre> 
+        </div>
+        <div class="col-6">
+          <pre>{{ store.seriesList }}</pre> 
+        </div>
 
-      <!--Creare componente film singolo -->
-      <div class="films" v-for="film in store.filmsList.results">
-        <p>{{ film.original_title }}</p>
+        <div class="col-12">
+          <pre>{{  }}</pre> 
+        </div>
       </div>
     </div>
-
-       <!-- <pre>{{ store.filmsList }}</pre>  -->
+       
 </template>
 
 <style scoped>
