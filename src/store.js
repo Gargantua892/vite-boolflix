@@ -12,7 +12,7 @@ export const store = reactive({
     //Chiave per far funzionare le API
     myApiKey: "?api_key=82aa0260bc86c93d9e09ac808331317b&query=",
 
-    imgPrefix: "https://image.tmdb.org/t/p/w500/",
+    imgPrefix: "https://image.tmdb.org/t/p/w780/",
 
     filmsList: [],
 

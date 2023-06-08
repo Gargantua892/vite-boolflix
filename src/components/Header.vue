@@ -21,7 +21,7 @@ getApi(){
 
   axios.get(filmUrl)
     .then(res => {
-      store.filmsList = res.data;
+      store.filmsList = (res.data);
     })
     .catch( err => {
       console.log(err);
@@ -34,7 +34,10 @@ getApi(){
     .catch( err => {
       console.log(err);
     });
-}
+    // store.mixList = {...store.filmsList}, {...store.seriesList}
+},
+
+
 
 },
 
@@ -48,9 +51,11 @@ this.getApi();
 </script>
 
 <template>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid justify-content-between">
-            <a class="navbar-brand" href="#">Navbar</a>
+    <nav class="navbar navbar-expand-lg bg-black">
+        <div class="container-fluid justify-content-between px-5">
+            <a class="navbar-brand" href="#">
+              <img src="./../assets/Logo.png" alt="logo" height="40">
+            </a>
             <!-- Componente che richiama il modulo search -->
             <SearchModule @search="getApi"/>
         </div>

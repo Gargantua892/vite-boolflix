@@ -37,37 +37,82 @@ export default {
 
     stars(film){
         return Math.round(film.vote_average / 2).toFixed();
-    }
-  
+    },
 },
 
-    computed:{
-        
-    }
 }
 </script>
 
 <!-- https://api.themoviedb.org/3/configuration/languages?api_key=e99307154c6dfb0b4750f6603256716d -->
 
 <template>
-                
-    <div class="col-md-3 d-flex" v-for="film in store.filmsList.results">
+    <div class="col-md-4 col-lg-3 d-flex" v-for="film in store.filmsList.results">
         <!--Creare componente film singolo -->
-        <div class="card">
-            <div class="card-body" @click="toUppercase">
-                <img class="img-fluid" :src="`${store.imgPrefix}${film.poster_path}`" alt="">
-                <h5 class="card-title">{{film.title}}</h5>
-                <h6 v-if="film.title !== film.original_title" class="card-subtitle mb-2 text-body-secondary">{{ film.original_title }}</h6>
-                <span id="stelle" class="card-text me-3">
-                    <Stars :counter="stars(film)" /></span>
+        <div class="card border-dark position-relative overflow-hidden" v-if="film.title">
+            <img class="object-fit-cover h-100" :src="`${store.imgPrefix}${film.poster_path}`" alt="">
+            <div class="h-100 d-flex flex-column justify-content-between card-content">
+                <div class="card-body overflow-auto">
+                    <h4 class="card-title">{{film.title}}</h4><span>{{ film.id }}</span>
+                    <h6 v-if="film.title !== film.original_title" class="mb-2">{{ film.original_title }}</h6>
+                    <p>{{ film.overview }}</p>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <span id="stelle" class="card-text me-3">
+                    <Stars :counter="stars(film)" />
+                </span>
                 <!-- <img :src="`https://flagsapi.com/${toUppercase(film)}/flat/64.png`"> -->
                 <img class="shadow-sm" :src="`https://flagcdn.com/${lang(film)}.svg`" width="20" onerror="this.remove()" :alt="film.original_language">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-lg-3 d-flex" v-for="film in store.seriesList.results">
+        
+        <!--Creare componente film singolo -->
+        <div class="card border-dark position-relative overflow-hidden" v-if="film.original_name && film.overview  && film.poster_path">
+            <img class="object-fit-cover h-100" :src="`${store.imgPrefix}${film.poster_path}`" alt="">
+            <div class="h-100 d-flex flex-column justify-content-between card-content">
+                <div class="card-body overflow-auto">
+                    <h4 class="card-title">{{film.original_name}}</h4>
+                    <h6 v-if="film.title !== film.original_title" class="mb-2">{{ film.original_title }}</h6>
+                    <p>{{ film.overview }}</p>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <span id="stelle" class="card-text me-3">
+                    <Stars :counter="stars(film)" />
+                </span>
+                <!-- <img :src="`https://flagsapi.com/${toUppercase(film)}/flat/64.png`"> -->
+                <img class="shadow-sm" :src="`https://flagcdn.com/${lang(film)}.svg`" width="20" onerror="this.remove()" :alt="film.original_language">
+                </div>
             </div>
         </div>
     </div>
 
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
+
+.card-content{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    transition: linear 0.2s;
+
+    &:hover{
+        background-color: black;
+        opacity: 1;
+    }
+    .card-body{
+        color: #fff;
+
+        height: 6px;
+
+    }
+
+}
 
 </style>

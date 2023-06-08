@@ -26,24 +26,14 @@ data() {
 
 <template>
     <Header />
-    <FilmList />
-    <div class="container">
-      <div class="row">
-        <!-- <div class="col-6">
-          <pre>{{ store.filmsList }}</pre> 
-        </div>
-        <div class="col-6">
-          <pre>{{ store.seriesList }}</pre> 
-        </div> -->
-
-        <!-- <div class="col-12">
-          <pre>{{ store.mixList }}</pre> 
-        </div> -->
-      </div>
-    </div>
-       
+    <FilmList class="bg-dark h-100 overflow-auto"/>
+    
 </template>
 
-<style scoped>
+<style lang="scss">
+
+#app{
+  height: calc(100vh - 66px);
+}
 
 </style>

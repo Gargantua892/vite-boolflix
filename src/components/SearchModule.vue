@@ -16,7 +16,7 @@ export default{
         <!-- Input con valore collegato allo store -->
         <input class="form-control me-2" v-model="store.searchValue" type="search" placeholder="Search" aria-label="Search">
         <!-- Emit personalizzato per far partire la chiamata API -->
-        <button class="btn btn-outline-success" type="submit" @click.prevent="$emit('search')">Search</button>
+        <button class="btn btn-outline-danger" type="submit" @click.prevent="$emit('search')">Search</button>
     </form>
 </template>
 

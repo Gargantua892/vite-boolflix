@@ -9,8 +9,9 @@ export default {
 </script>
 
 <template>
-    <div class="filmList">
-        <div class="row">
+    <div class="filmList p-5 bg-dark">
+        <div class="row g-3">
+            <h2 class="text-white">Prova</h2>
             <Film />
         </div>
     </div>
