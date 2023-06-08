@@ -34,9 +34,10 @@ getApi(){
     .catch( err => {
       console.log(err);
     });
+}
 
 },
-},
+
 created() {
 this.getApi();
 }

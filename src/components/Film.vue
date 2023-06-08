@@ -57,11 +57,11 @@ export default {
             <div class="card-body" @click="toUppercase">
                 <img class="img-fluid" :src="`${store.imgPrefix}${film.poster_path}`" alt="">
                 <h5 class="card-title">{{film.title}}</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">{{ film.original_title }}</h6>
+                <h6 v-if="film.title !== film.original_title" class="card-subtitle mb-2 text-body-secondary">{{ film.original_title }}</h6>
                 <span id="stelle" class="card-text me-3">
                     <Stars :counter="stars(film)" /></span>
                 <!-- <img :src="`https://flagsapi.com/${toUppercase(film)}/flat/64.png`"> -->
-                <img :src="`https://flagcdn.com/${lang(film)}.svg`" width="20" onerror="this.remove()" :alt="film.original_language">
+                <img class="shadow-sm" :src="`https://flagcdn.com/${lang(film)}.svg`" width="20" onerror="this.remove()" :alt="film.original_language">
             </div>
         </div>
     </div>

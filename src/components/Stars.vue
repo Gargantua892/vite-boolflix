@@ -22,10 +22,13 @@ export default {
 </script>
 
 <template>
-    <i class="bi bi-star-fill position-absolute" v-for="stars in counter"></i>
-    <i class="bi bi-star" v-for="stars in 5"></i>
+    <div class="stars-container">
+        <i v-for="(stars, i) in 5" class="bi" :class="i <= counter ? 'bi-star-fill' : 'bi-star'"></i>
+    </div> 
 </template>
 
 <style lang="scss">
-
+    .stars-container{
+        color: #F4C430;
+    }
 </style>
