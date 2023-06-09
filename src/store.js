@@ -20,6 +20,8 @@ export const store = reactive({
 
     mixList: [],
 
+    isActive: false,
+
     //Valore variabile associato al v-model del componente "searchBar.vue"
     searchValue: "",
 });

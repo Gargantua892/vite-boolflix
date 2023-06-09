@@ -34,10 +34,8 @@ getApi(){
     .catch( err => {
       console.log(err);
     });
-    // store.mixList = {...store.filmsList}, {...store.seriesList}
-},
 
-
+  },
 
 },
 

@@ -37,30 +37,11 @@ export default {
     stars(film){
         return Math.round(film.vote_average / 2).toFixed();
     },
-
-    // invalidUrl(){
-    //     let domUrlNull = document.querySelectorAll('.poster');
-    //     let url = "https://image.tmdb.org/t/p/w780/null";
-
-    //     for(item in domUrlNull){
-    //         let bridgeUrl = item.src;
-    //         if(bridgeUrl === url){
-    //             bridgeUrl = "https://image.tmdb.org/t/p/w780//n8kKptdGBOyfa2qVIHcg0ovxpTs.jpg";
-
-    //             return bridgeUrl;
-    //         }
-    //     }
-    // }
 },
 
 props: {
     filmProp: Object,
 },
-
-// mounted() {
-//     invalidUrl();
-// }
-
 }
 </script>
 
@@ -75,7 +56,7 @@ props: {
                 <div class="card-body overflow-auto">
                     <h4 v-if="filmProp.title" class="card-title">{{filmProp.title}}</h4>
                     <h4 v-else>{{filmProp.original_name}}</h4>
-                    <h6 v-if="filmProp.title !== filmProp.original_title" class="mb-2">{{ filmProp.original_title }}</h6>
+                    <h6 v-if="filmProp.title !== filmProp.original_title" class="mb-2 text-secondary">{{ filmProp.original_title }}</h6>
                     <p>{{ filmProp.overview }}</p>
                 </div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
