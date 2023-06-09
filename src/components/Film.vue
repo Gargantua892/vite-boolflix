@@ -1,6 +1,5 @@
 <script>
-import { store } from './../store.js'
-import axios from 'axios';
+import { store } from '../store';
 import Stars from './Stars.vue';
 
 export default {
@@ -38,7 +37,29 @@ export default {
     stars(film){
         return Math.round(film.vote_average / 2).toFixed();
     },
+
+    // invalidUrl(){
+    //     let domUrlNull = document.querySelectorAll('.poster');
+    //     let url = "https://image.tmdb.org/t/p/w780/null";
+
+    //     for(item in domUrlNull){
+    //         let bridgeUrl = item.src;
+    //         if(bridgeUrl === url){
+    //             bridgeUrl = "https://image.tmdb.org/t/p/w780//n8kKptdGBOyfa2qVIHcg0ovxpTs.jpg";
+
+    //             return bridgeUrl;
+    //         }
+    //     }
+    // }
 },
+
+props: {
+    filmProp: Object,
+},
+
+// mounted() {
+//     invalidUrl();
+// }
 
 }
 </script>
@@ -46,49 +67,26 @@ export default {
 <!-- https://api.themoviedb.org/3/configuration/languages?api_key=e99307154c6dfb0b4750f6603256716d -->
 
 <template>
-    <div class="col-md-4 col-lg-3 d-flex" v-for="film in store.filmsList.results">
+    <div class="col-md-4 col-lg-3 d-flex" v-if="filmProp.poster_path">
         <!--Creare componente film singolo -->
-        <div class="card border-dark position-relative overflow-hidden" v-if="film.title">
-            <img class="object-fit-cover h-100" :src="`${store.imgPrefix}${film.poster_path}`" alt="">
+        <div class="card border-dark position-relative overflow-hidden" v-if="filmProp.title || filmProp.original_name">
+            <img class="object-fit-cover h-100 poster" :src="`${store.imgPrefix}${filmProp.poster_path}`" alt="">
             <div class="h-100 d-flex flex-column justify-content-between card-content">
                 <div class="card-body overflow-auto">
-                    <h4 class="card-title">{{film.title}}</h4><span>{{ film.id }}</span>
-                    <h6 v-if="film.title !== film.original_title" class="mb-2">{{ film.original_title }}</h6>
-                    <p>{{ film.overview }}</p>
+                    <h4 v-if="filmProp.title" class="card-title">{{filmProp.title}}</h4>
+                    <h4 v-else>{{filmProp.original_name}}</h4>
+                    <h6 v-if="filmProp.title !== filmProp.original_title" class="mb-2">{{ filmProp.original_title }}</h6>
+                    <p>{{ filmProp.overview }}</p>
                 </div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
                     <span id="stelle" class="card-text me-3">
-                    <Stars :counter="stars(film)" />
-                </span>
-                <!-- <img :src="`https://flagsapi.com/${toUppercase(film)}/flat/64.png`"> -->
-                <img class="shadow-sm" :src="`https://flagcdn.com/${lang(film)}.svg`" width="20" onerror="this.remove()" :alt="film.original_language">
+                        <Stars :counter="stars(filmProp)" />
+                    </span>
+                    <img class="shadow-sm" :src="`https://flagcdn.com/${lang(filmProp)}.svg`" width="20" onerror="this.remove()" :alt="filmProp.original_language">
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="col-md-4 col-lg-3 d-flex" v-for="film in store.seriesList.results">
-        
-        <!--Creare componente film singolo -->
-        <div class="card border-dark position-relative overflow-hidden" v-if="film.original_name && film.overview  && film.poster_path">
-            <img class="object-fit-cover h-100" :src="`${store.imgPrefix}${film.poster_path}`" alt="">
-            <div class="h-100 d-flex flex-column justify-content-between card-content">
-                <div class="card-body overflow-auto">
-                    <h4 class="card-title">{{film.original_name}}</h4>
-                    <h6 v-if="film.title !== film.original_title" class="mb-2">{{ film.original_title }}</h6>
-                    <p>{{ film.overview }}</p>
-                </div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <span id="stelle" class="card-text me-3">
-                    <Stars :counter="stars(film)" />
-                </span>
-                <!-- <img :src="`https://flagsapi.com/${toUppercase(film)}/flat/64.png`"> -->
-                <img class="shadow-sm" :src="`https://flagcdn.com/${lang(film)}.svg`" width="20" onerror="this.remove()" :alt="film.original_language">
-                </div>
-            </div>
-        </div>
-    </div>
-
 </template>
 
 <style lang="scss" scoped>
